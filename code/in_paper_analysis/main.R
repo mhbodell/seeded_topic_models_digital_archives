@@ -65,26 +65,6 @@ data$paper <- ifelse(substr(data$id,start = 1, stop = 1)=='A','Aftonbladet',
 # count number of obs. per paper
 table(data$paper)
 
-#----------------------------------------------------------------------------#
-#                    Identify high immigration salience weeks            ----
-#----------------------------------------------------------------------------#
-
-
-# which weeks are immigration discussed the most 
-# (can be used to validate model (does the model identify that the media talk 
-# about immigration when something related to immigration happen)
-#high_salience <- identify_high_salience(base_path = base_path)
-# read in list of "known" immigration events"
-#events_df <- read_format_event_data(data_path = data_path)
-#match event with high salience weeks
-#events_df_tmp2 <- events_df[events_df$ymw%in%high_salience$ymw | events_df$ymw2%in%high_salience$ymw ,]
-# which events correspond with "high salience" weeks?
-#events_df_tmp2
-#gc()
-
-#------------------------------------
-# CREATE PLOT 1 - WEEKLY SALIENCE
-#-----------------------------------
 
 #----------------------------------------------------------------------------#
 #          Create Fig 1 (Weekly salience + raw immigration numbs.)        ----
@@ -92,15 +72,6 @@ table(data$paper)
 
 # read in weekly data
 df_plot <- read_format_weekly_data(base_path = base_path)
-
-#focus on past 2000 events (consistent era)
-#events_df_tmp2 <- events_df_tmp2[y>=2000,]
-#events_df_tmp2 
-
-#identify weeks with uncommonly high salience of immigration
-#df_plot[,highsal_col := ifelse(ymw%in%high_salience$ymw,'1','0')]
-# identify weeks where an event happened
-#df_plot[, highsal_col2 := ifelse(ymw%in%events_df_tmp2$ymw,'2',highsal_col)]
 
 # read in immigration statistics data (will give warnings - ignore it!)
 df_y_inv <- read_format_scb_data(base_path = base_path, git_path = git_path)
