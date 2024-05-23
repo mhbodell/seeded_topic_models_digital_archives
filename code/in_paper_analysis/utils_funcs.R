@@ -147,7 +147,7 @@ plot_immigration_salience <-  function(df_plot = df_plot, base_path = base_path,
   
   
   pw <- df_plot %>%
-    filter(highsal_col2!='2') %>%
+    #filter(highsal_col2!='2') %>%
     ggplot(aes(x = ymw, y = (z_1/N)*100)) +
     geom_point(aes(fill = '0',col='0'), size = 0.3,pch=21) +
     #geom_point(data = df_plot[highsal_col2=='2',], aes(fill = '2'), size = 1, pch = 21, col = 'black') +

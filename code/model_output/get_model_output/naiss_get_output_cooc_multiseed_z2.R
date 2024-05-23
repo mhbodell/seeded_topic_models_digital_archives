@@ -61,9 +61,12 @@ relevance_words <- fread(paste0(base_path,list.files(base_path)[list.files(base_
 # need -1 because index starts at 0
 #topicid <- which(apply(top_words,1, function(x) ifelse(length(which(x%like%'invandr'))>0,1,0))==1) - 1
 
+# create a lift of the seeded model and their correponding topic
+# here you can manually change/add topics if the seeding didn't work
+# run is the run-number given automatically -- when re-running model this will change but topics remain
 if(run=='2024-01-27--11_21_40'){
   topicids <- list(immigration = c(0),
-                   crime = c(1:4), #drugs #coup/robbery
+                   crime = c(1:4), 
                    education = c(5:6),
                    human_rights = c(7:8,153),
                    eu = c(9),
@@ -72,7 +75,7 @@ if(run=='2024-01-27--11_21_40'){
                    discrimination = c(15),
                    finance = c(16:17),
                    political_parties = c(18:21),
-                   terrorism = c(22:23), # also general "murder"
+                   terrorism = c(22:23), 
                    multiculturalism = c(24), 
                    housing = c(25),
                    iraq = c(26),
@@ -90,10 +93,11 @@ if(run=='2024-01-27--11_21_40'){
                   'finance','political_parties', 'terrorism', 'multiculturalism', 
                   'housing', 'iraq', 'syria', 'israel_palestine','religion',
                   'racism', 'health_care', 'swedishness', 'language','balkan')
+  # which id is immigration
   topicid <- 0
 } else if(run=='2024-01-28--10_33_18'){
   topicids <- list(immigration = c(0),
-                   crime = c(1:4), #drugs #coup/robbery
+                   crime = c(1:4),
                    education = c(5:6),
                    human_rights = c(7:8),
                    eu = c(9),
@@ -102,14 +106,14 @@ if(run=='2024-01-27--11_21_40'){
                    discrimination = c(15),
                    finance = c(16:17),
                    political_parties = c(18:21),
-                   terrorism = c(22:23), # also general "murder"
+                   terrorism = c(22:23), 
                    multiculturalism = c(24), 
                    housing = c(25),
                    iraq = c(26),
                    syria = c(27),
                    israel_palestine = c(28),
                    religion = c(29),
-                   racism = c(30), # german topic
+                   racism = c(30), 
                    health_care = c(31),
                    swedishness = c(32,418),
                    language = c(33,39),
@@ -123,7 +127,7 @@ if(run=='2024-01-27--11_21_40'){
   topicid <- 0
 } else if(run=='2024-01-28--10_33_25'){
   topicids <- list(immigration = c(0),
-                   crime = c(1:4), #drugs #coup/robbery
+                   crime = c(1:4), 
                    education = c(5:6),
                    human_rights = c(7:8,89),
                    eu = c(9),
@@ -132,14 +136,14 @@ if(run=='2024-01-27--11_21_40'){
                    discrimination = c(15),
                    finance = c(16:17),
                    political_parties = c(18:21),
-                   terrorism = c(22:23), # also general "murder"
+                   terrorism = c(22:23), 
                    multiculturalism = c(24), 
                    housing = c(25),
                    iraq = c(26),
                    syria = c(27),
                    israel_palestine = c(28),
                    religion = c(29),
-                   racism = c(30), # german topic
+                   racism = c(30), 
                    health_care = c(31),
                    swedishness = c(32,257),
                    language = c(33,312),
@@ -151,7 +155,7 @@ if(run=='2024-01-27--11_21_40'){
                   'housing', 'iraq', 'syria', 'israel_palestine','religion',
                   'racism', 'health_care', 'swedishness', 'language','balkan')
   topicid <- 0
-}else if(run=='2024-02-05--12_14_55'){
+} else if(run=='2024-02-05--12_14_55'){
   topicids <- list(immigration = c(0),
                    crime = c(1:4), 
                    education = c(5:6),
@@ -162,14 +166,14 @@ if(run=='2024-01-27--11_21_40'){
                    discrimination = c(15),
                    finance = c(16:17),
                    political_parties = c(18:21),
-                   terrorism = c(22:23), # also general "murder"
+                   terrorism = c(22:23),
                    multiculturalism = c(24), 
                    housing = c(25),
                    iraq = c(26),
                    syria = c(27),
                    israel_palestine = c(28),
                    religion = c(29),
-                   racism = c(30), # german topic
+                   racism = c(30), 
                    health_care = c(31),
                    swedishness = c(32,660),
                    language = c(33,852),
@@ -192,14 +196,14 @@ if(run=='2024-01-27--11_21_40'){
                    discrimination = c(15),
                    finance = c(16:17),
                    political_parties = c(18:21),
-                   terrorism = c(22:23), # also general "murder"
+                   terrorism = c(22:23),
                    multiculturalism = c(24), 
                    housing = c(25),
                    iraq = c(26),
                    syria = c(27),
                    israel_palestine = c(28),
                    religion = c(29),
-                   racism = c(30), # german topic
+                   racism = c(30),
                    health_care = c(31),
                    swedishness = c(32,757),
                    language = c(33, 468),
@@ -211,7 +215,7 @@ if(run=='2024-01-27--11_21_40'){
                   'housing', 'iraq', 'syria', 'israel_palestine','religion',
                   'racism', 'health_care', 'swedishness', 'language','balkan')
   topicid <- 0
-}  else if(run=='2024-02-08--09_09_45'){
+}else if(run=='2024-02-08--09_09_45'){
   topicids <- list(immigration = c(0),
                    crime = c(1:4), 
                    education = c(5:6),
