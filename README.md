@@ -4,7 +4,7 @@ This repository contains the code needed to reproduce the paper by Hurtado Bodel
 
 If you want to recreate the model from scratch, follow steps 1-3. If you just want to re-run the code used for the main analysis in the paper, skip to step 4.
 
-## 1. Installing the java implementation of the seeded topic model with a scalable gibbs sampler
+## 1. Installing the java implementation of the seeded topic model with a scalable Gibbs sampler
 
 The paper utilizes the sampler introduced in Magnusson et al. (2018) "Sparse Partially Collapsed MCMC for Parallel Inference in Topic Models." You can find the Java implementation used in this paper [here](https://github.com/lejon/PartiallyCollapsedLDA).
 
