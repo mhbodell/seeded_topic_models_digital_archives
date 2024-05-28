@@ -36,34 +36,15 @@ runs <- c('2021-06-06--18_11_45')
 run_nr <- 1
 where <- 'kb_new'
 if(where=='kb_new'){
-  base_path <- paste0('/home/miriam/Downloads/RunSuite',runs[run_nr],'/Run',runs[run_nr],'/Spalias/')
-  save_path <- base_path
-  git_path <- '/home/miriam/Documents/git/seeded_topic_models_digital_archives/'
-  data_path <- '/home/miriam/Documents/git/seeded_topic_models_digital_archives/data/'
+  # change paths to your local path
+  base_path <- paste0('/home/miriam/Documents/git/seeded_topic_models_digital_archives/')
+  save_path <- paste0(base_path, 'output/')
+  data_path <- paste0(base_path,'data/')
 }
 
 # load own functions needed in the analysis
-source(file = paste0(git_path,'code/in_paper_analysis/utils_funcs.R'))
+source(file = paste0(base_path,'code/in_paper_analysis/utils_funcs.R'))
 
-#---------------------------------------------------------------------------#
-#                                read in data                            ----
-#---------------------------------------------------------------------------#
-# set threshold for "immigrant-rich"
-too_small_threshold <- 0.025
-
-# read in data & select docs based on threshold
-data <- fread(paste0(base_path,'immigration_ts_doc_multi.csv'))
-data <- data[r>=too_small_threshold,]
-# print number of obs included in analysis
-nrow(data)
-gc()
-
-# add info about which newspaper a text was published in
-data$paper <- ifelse(substr(data$id,start = 1, stop = 1)=='A','Aftonbladet',
-                     ifelse(substr(data$id,start = 1, stop = 1)=='E', 'Expressen',
-                            ifelse(substr(data$id,start = 1, stop = 1)=='S','Svenska Dagbladet','Dagens Nyheter')))
-# count number of obs. per paper
-table(data$paper)
 
 
 #----------------------------------------------------------------------------#
@@ -71,10 +52,10 @@ table(data$paper)
 #----------------------------------------------------------------------------#
 
 # read in weekly data
-df_plot <- read_format_weekly_data(base_path = base_path)
+df_plot <- read_format_weekly_data(data_path = data_path)
 
 # read in immigration statistics data (will give warnings - ignore it!)
-df_y_inv <- read_format_scb_data(base_path = base_path, git_path = git_path)
+df_y_inv <- read_format_scb_data(data_path = data_path)
 
 # standardized im. stat. data
 scalar2 <- round(mean(df_y_inv$count/(df_y_inv$stand_y)))
@@ -87,12 +68,11 @@ casing <- c('1945-01-01','1955-01-01','1965-01-01','1975-01-01','1985-01-01','19
 casing_labels <- c('1945','1955','1965','1975','1985','1995','2005','2015')
 
 # plot immigration salience in news
-plt_immigration_salience <- plot_immigration_salience(df_plot = df_plot, base_path = base_path, 
+plt_immigration_salience <- plot_immigration_salience(df_plot = df_plot, data_path = data_path, 
                                 casing = casing, casing_labels = casing_labels)
 
 
-plt_immigration_numbs <- plot_immigration_numbs(df_plot = df_y_inv, base_path = base_path, 
-                                             casing = casing, casing_labels = casing_labels)
+plt_immigration_numbs <- plot_immigration_numbs(df_plot = df_y_inv, casing = casing, casing_labels = casing_labels)
 
 # combine plots
 salience_scb_plot <- ggpubr::ggarrange(plt_immigration_numbs,
@@ -104,9 +84,12 @@ salience_scb_plot <- ggpubr::ggarrange(plt_immigration_numbs,
 salience_scb_plot
 
 # file name + save
+# set immigration rich threshold level
+too_small_threshold <- 0.025
 name_thres <- gsub(pattern = '\\.','_',as.character(too_small_threshold))
-fn <- paste0(save_path,name_thres,"/salience_scb_small.png")
-ggsave(file = fn,    plot = salience_scb_plot, limitsize = T,  height = 12,  width = 15,   units = 'cm')
+fn <- paste0(save_path,name_thres,"/fig1.png")
+ggsave(file = fn,    plot = salience_scb_plot, limitsize = T,  height = 12,  
+       width = 15,   units = 'cm')
 
 #----------------------------------------------------------------------------#
 #          Calculate correlations between im. numbs & salience           ----
@@ -139,8 +122,29 @@ mean(period4$z_1/period4$N)*100
 #----------------------------------------------------------------------------#
 #                 Create Fig. 2a (framing salience)                   ----
 #----------------------------------------------------------------------------#
+
+# --> Due to data limitations on Github we provide only the processed dataset
+# that is created on row 131 - 146
+# ----> (JUMP TO ROW 148 to read in the processed data) <----
+# read in data & select docs based on threshold (NB! local file can not be read)
+data <- fread(paste0('/home/miriam/Downloads/RunSuite',runs,'/Run',runs,'/Spalias/immigration_ts_doc_multi.csv'))
+data <- data[r>=too_small_threshold,]
+# print number of obs included in analysis
+nrow(data)
+gc()
+
+# add info about which newspaper a text was published in
+data$paper <- ifelse(substr(data$id,start = 1, stop = 1)=='A','Aftonbladet',
+                     ifelse(substr(data$id,start = 1, stop = 1)=='E', 'Expressen',
+                            ifelse(substr(data$id,start = 1, stop = 1)=='S','Svenska Dagbladet','Dagens Nyheter')))
+# count number of obs. per paper
+table(data$paper)
+
 # get data of framing salience (date-level)
 df_frame_salience <- get_framing_salience(current_model = runs[run_nr], data = data)
+fwrite(df_frame_salience, file = paste0(data_path, 'df_frame_salience.csv'))
+# -----> READ PROCESSED DATA <------
+df_frame_salience <- fread(paste0(data_path, 'df_frame_salience.csv'))
 
 # aggregate data to yearly-level
 df_frame_salience_yearly <- get_yearly_framing_salience(df_frame_salience_plot = copy(df_frame_salience))
@@ -158,10 +162,9 @@ plt_frame_ts
 #----------------------------------------------------------------------------#
 #                 Create Fig. 2b (turning points)                   ----
 #----------------------------------------------------------------------------#
-set.seed(14121)
-
 # cast to wide format
-df_frame_salience_yearly_wide <- pivot_wider(df_frame_salience_yearly, id_cols = year, names_from = frame, values_from = frame_r)
+df_frame_salience_yearly_wide <- pivot_wider(df_frame_salience_yearly, id_cols = year, 
+                                             names_from = frame, values_from = frame_r)
 
 # run multivariate turning point analysis
 multivariate_bcp <- get_multivariate_tp(tmp_data = df_frame_salience_yearly_wide)
@@ -174,12 +177,11 @@ uni_economy <- get_univariate_tp(tmp_data = df_frame_salience_yearly_wide, frame
 uni_hr <- get_univariate_tp(tmp_data = df_frame_salience_yearly_wide, frame_name = 'humanitarian')
 
 # combine univariate frames
-#tmp <- rbind(tmp_security, tmp_economy, tmp_humanitarian,tmp_cultural,tmp_politics)
 univariate_bcp <-rbind(uni_security, uni_politics, uni_cultural, uni_economy, uni_hr)
 gc()
 
 # change name of levels (to make plot pretty)
-univariate_bcp$frame <- factor(univariate_bcp$frame, levels = c("humanitarian", "security", "economy", 'cultural','political'))
+univariate_bcp$frame <- factor(univariate_bcp$frame, levels = c("humanitarian", "security", "economy", 'cultural','politics'))
 
 # which years have highest change points probability
 tp_year <- multivariate_bcp[multivariate_bcp$posterior_prob>0.5,]$year
@@ -202,7 +204,7 @@ fig2 <- ggpubr::ggarrange(plt_frame_ts2, plot_tp , nrow = 2, ncol = 1, labels = 
 fig2
 too_small_threshold_t <-gsub(as.character(too_small_threshold), pattern = '\\.', replacement = '_')
 posthoc_type <- 'minimal'
-ggsave(fig2,  file = paste0(save_path, too_small_threshold_t,'/cp_eras_',too_small_threshold_t,'_',posthoc_type,'0_5thres.png'),
+ggsave(fig2,  file = paste0(save_path, too_small_threshold_t,'/fig2.png'),
        height = 12, width = 15,  units = 'cm')
 
 

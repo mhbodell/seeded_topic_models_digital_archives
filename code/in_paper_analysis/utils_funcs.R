@@ -76,8 +76,8 @@ read_format_event_data <- function(data_path = data_path){
 #                 Read and format weekly salience data                   ----
 #----------------------------------------------------------------------------#
 
-read_format_weekly_data <- function(base_path = base_path){
-  df_weekly <- fread(paste0(base_path, 'df_weekly_full.csv'))
+read_format_weekly_data <- function(data_path = data_path){
+  df_weekly <- fread(paste0(data_path, 'df_weekly_full.csv'))
   df_weekly %>% ungroup() %>% arrange(date) %>% mutate(ind = 1:nrow(df_weekly)) -> df_plot2
   # create "pretty labels"
   df_plot2 <- data.table(df_plot2)
@@ -99,15 +99,14 @@ read_format_weekly_data <- function(base_path = base_path){
 #                   Read and format raw im. data (SCB)                  ----
 #----------------------------------------------------------------------------#
 
-read_format_scb_data <- function(base_path = base_path, git_path = git_path, current_run = runs[run_nr]){
-  df_y <- fread(paste0(base_path,'df_y_full.csv'))
+read_format_scb_data <- function(data_path = data_path, current_run = runs[run_nr]){
+  df_y <- fread(paste0(data_path,'df_y_full.csv'))
   if(current_run%in%c('2021-06-24--01_15_10','2024-01-11--16_01_43','2024-01-22--00_44_20','2024-01-28--10_33_18','2024-02-03--09_18_24')){
     df_y <- df_y %>% group_by(year,topic) %>%summarise(z_0 = mean(z_0),N=mean(N)) 
   }else{
     df_y <- df_y %>% group_by(year,topic) %>%summarise(z_1 = mean(z_1),N=mean(N)) 
   }
-  scb_path <- paste0(git_path,'/data/')
-  inv <- read.csv(paste0(scb_path, 'invandring1.csv'),
+  inv <- read.csv(paste0(data_path, 'invandring1.csv'),
                   sep = ';',
                   encoding = 'UTF-8', 
                   header = FALSE)
@@ -136,9 +135,9 @@ read_format_scb_data <- function(base_path = base_path, git_path = git_path, cur
 #                      Plot immgiration salience                       ----
 #----------------------------------------------------------------------------#
 
-plot_immigration_salience <-  function(df_plot = df_plot, base_path = base_path, casing = casing, casing_labels = casing_labels, current_run = runs[run_nr]){
+plot_immigration_salience <-  function(df_plot = df_plot, data_path = data_path, casing = casing, casing_labels = casing_labels, current_run = runs[run_nr]){
   
-  df_y <- fread(paste0(base_path,'df_y_full.csv'))
+  df_y <- fread(paste0(data_path,'df_y_full.csv'))
   if(current_run%in%c('2021-06-24--01_15_10','2024-01-11--16_01_43','2024-01-22--00_44_20','2024-01-28--10_33_18','2024-02-03--09_18_24')){
     df_y <- df_y %>% group_by(year,topic) %>%summarise(z_1 = mean(z_0),N=mean(N)) 
   }else{
@@ -190,7 +189,7 @@ plot_immigration_salience <-  function(df_plot = df_plot, base_path = base_path,
 #                         Plot SCB raw im. numbs                       ----
 #----------------------------------------------------------------------------#
 
-plot_immigration_numbs <-  function(df_plot = df_y_inv, base_path = base_path, casing = casing, casing_labels = casing_labels){
+plot_immigration_numbs <-  function(df_plot = df_y_inv,  casing = casing, casing_labels = casing_labels){
   ggplot(df_plot, aes(x = paste0(year,'-01-01'), group = 1, y = count/1000)) +
     geom_line(size = 1) +
     theme(aspect.ratio=1) +
@@ -594,23 +593,6 @@ get_framing_salience <- function(current_model ="2021-06-06--18_11_45", data = d
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   # collect all non-seeded columns as "other"
   nc <- (ncol(data[,names(data)%like%'T_', with = F])-1)
   agg_topics[[1]]$other <- c(0:nc)[-which(c(0:nc)%in%unlist(agg_topics[[1]]))]
@@ -982,12 +964,12 @@ plot_turning_points <-  function(df_plot = univariate_bcp, turning_points =  tp_
                               'economy' = '#E69F00',
                               'humanitarian' = '#56B4E9',
                               'security' = '#F0E442',
-                              'political' = '#009E73'),
+                              'politics' = '#009E73'),
                      labels = c('cultural' = "Culture", 
                                 'economy' = "Economy", 
                                 'humanitarian' ="Human \nrights",
                                 'security' = "Security",
-                                'political' ="Politics")) -> tmp_plt
+                                'politics' ="Politics")) -> tmp_plt
   
   if(run=="2021-06-06--18_11_45"){
     tmp_plt +
