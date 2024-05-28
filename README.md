@@ -24,7 +24,9 @@ Use this [bash file](https://github.com/mhbodell/seeded_topic_models_digital_arc
 
 Run [main.R](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/code/in_paper_analysis/main.R) to generate the figures and numbers included in the main text of the paper. The code in this script creates (1) Figure 1: immigration salience vs. real immigration numbers over time, and (2) Figure 2: the relative frame salience over time, identifying and plotting turning points in the immigration discourse.
 
-All data needed to run main.R are available [here](https://github.com/mhbodell/seeded_topic_models_digital_archives/tree/main/data).
+All data needed to run main.R are available [here](https://github.com/mhbodell/seeded_topic_models_digital_archives/tree/main/data) and you find all the figures from the paper [here](https://github.com/mhbodell/seeded_topic_models_digital_archives/tree/main/output/0_025).
+
+The figures produced by main.R are
 
 You can find the code used to create the figures and numbers in the appendix [here](https://github.com/mhbodell/seeded_topic_models_digital_archives/tree/main/code/in_paper_analysis/supplementary).
 
