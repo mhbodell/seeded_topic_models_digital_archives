@@ -1,12 +1,12 @@
 # Seeded Topic Models in Digital Archives: Analyzing Interpretations of Immigration in Swedish Newspapers, 1945-2019
 
-This repository contains the code needed to reproduce the paper by Hurtado Bodell, M., Keuschnigg, M., & Magnusson, M., titled "Seeded Topic Models in Digital Archives: Analyzing Interpretations of Immigration in Swedish Newspapers, 1945-2019."
+This repository contains the code needed to reproduce the paper by Hurtado Bodell, M., Keuschnigg, M., & Magnusson, M., (2024) "Seeded Topic Models in Digital Archives: Analyzing Interpretations of Immigration in Swedish Newspapers, 1945-2019." [conditionally accepted in Sociological Methods & Research]
 
 If you want to recreate the model from scratch, follow steps 1-3. If you just want to re-run the code used for the main analysis in the paper, skip to step 4.
 
 ## 1. Installing the Java Implementation of the Seeded Topic Model with a Scalable Gibbs Sampler
 
-The paper utilizes the sampler introduced in Magnusson et al. (2018), "Sparse Partially Collapsed MCMC for Parallel Inference in Topic Models." You can find the Java implementation used in this paper [here](https://github.com/lejon/PartiallyCollapsedLDA).
+The paper utilizes the sampler introduced in Magnusson et al. (2018) "Sparse Partially Collapsed MCMC for Parallel Inference in Topic Models." You can find the Java implementation used in this paper [here](https://github.com/lejon/PartiallyCollapsedLDA).
 
 Follow the instructions in the PartiallyCollapsedLDA repository to install the sampler used in the paper.
 
