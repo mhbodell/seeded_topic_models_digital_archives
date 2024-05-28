@@ -1,7 +1,8 @@
 #----------------------------------------------------------------------------#
 #           RE-RUN  MAIN TO TEST SENSITIVITY OF SEED WORDS                ----
 #----------------------------------------------------------------------------#
-
+# DUE TO DATA STORAGE LIMITATIONS ON GITHUB WE DO NOT PROVIDE THE DATA
+# FOR THIS ROBUSTNESS ANALYSIS
 
 #---------------------------------------------------------------------------#
 # load packages
@@ -28,10 +29,6 @@ for (package in required_packages) {
 # set up
 #---------------------------------------------------------------------------#
 
-#runs <- c('2024-01-11--16_01_43','2024-01-22--00_44_20','2024-01-27--11_21_40')
-#run_nr <- length(runs)
-#run <- runs[run_nr]
-
 where <- 'naiss'
 store_figs <- list()
 validations <- c('90_1','90_2','90_3','80_1','80_2','80_3','70_1','70_2','70_3')
@@ -41,7 +38,7 @@ for(ii in 1:length(validations)){
     print(run)
     data_path <- '/proj/efe_et/old_m4m/media_group_threat/data/'
     base_path <- paste0('/proj/efe_et/model_output/seed_validation_models/',run,'/')
-    git_path <- '/proj/efe_et/old_m4m/media_group_threat/'
+    git_path <- '/proj/efe_et/old_m4m/seeded_topic_models_digital_archives/'
     save_path <- paste0('/proj/efe_et/model_output/seed_validation_models/') } 
   #---------------------------------------------------------------------------#
   #                                read in data                            ----

@@ -9,11 +9,9 @@
 #randper 
 
 # read in original list of migration seed words to create new seed word lists
-where <- 'miriam'
-if(where=='miriam'){
-  priors <- c('/Users/mhbodell/Documents/Work/VT19/media_group_threat/bash/priors/cooc_priors_new_v18.txt')
-}else if(where=='kb_new'){
-  priors <- paste0(git_path,'bash/priors/cooc_priors_new_v18.txt')
+where <- 'kb_new'
+if(where=='kb_new'){
+  priors <- paste0(base_path,'bash/priors/priors_main.txt')
 }
 
 
@@ -47,7 +45,7 @@ p70_seeds <- draw_x_seedwords(run_seed = tmp_seeds, tmp_share = 0.7, all_seed_wo
 library(data.table)
 
 # read in original seed words
-seed_word_folder <- '/home/miriam/Documents/git/stm_media_framing_im/bash/priors/'
+seed_word_folder <- paste0(base_path,'bash/priors/seed_word_validation_priors/')
 original_seed_word_file <- list.files(seed_word_folder)[!list.files(seed_word_folder)%like%c('perc')]
 original_seed_word_file <- original_seed_word_file[original_seed_word_file%like%c('.txt')]
 original_seed_words <- fread(paste0(seed_word_folder, original_seed_word_file), header = FALSE, fill = TRUE)[1,-1]

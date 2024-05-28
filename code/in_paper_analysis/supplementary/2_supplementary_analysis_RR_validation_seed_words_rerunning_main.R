@@ -1,7 +1,8 @@
 #----------------------------------------------------------------------------#
 #           RE-RUN  MAIN TO TEST SENSITIVITY OF SEED WORDS                ----
 #----------------------------------------------------------------------------#
-
+# DUE TO DATA STORAGE LIMITATIONS ON GITHUB WE DO NOT PROVIDE THE DATA
+# FOR THIS ROBUSTNESS ANALYSIS
 
 #---------------------------------------------------------------------------#
 # load packages
@@ -43,13 +44,7 @@ if(where=='naiss'){
   base_path <- paste0('/proj/efe_et/Runs/RunSuite',run,'/Run',run,'/Spalias/')
   git_path <- '/proj/efe_et/old_m4m/media_group_threat/'
   save_path <- paste0('/proj/efe_et/Runs/RunSuite',run,'/Run',run,'/Spalias/')
-} else if(where=='kb_vali'){
-  data_path <- '/home/miriam/Documents/git/stm_media_framing_im/data/'
-  base_path <- paste0('/data/miriam/Runs/RunSuite', run , '/Run' , run, '/Spalias/')
-  git_path <- paste0('/home/miriam/Documents/git/stm_media_framing_im/')
-  save_path <- paste0('/data/miriam/Runs/RunSuite', run, '/Run' , run, '/Spalias/')
-}
-
+} 
 #---------------------------------------------------------------------------#
 #                                read in data                            ----
 #---------------------------------------------------------------------------#
@@ -73,19 +68,8 @@ table(data$paper)
 #                    Identify high immigration salience weeks            ----
 #----------------------------------------------------------------------------#
 
-source(file = paste0(git_path,'code/paper_ready/utils_funcs.R'))
-high_salience <- identify_high_salience(base_path = base_path)
-events_df <- read_format_event_data(data_path = data_path)
-#match event with high salience weeks
-events_df_tmp2 <- events_df[events_df$ymw%in%high_salience$ymw | events_df$ymw2%in%high_salience$ymw ,]
-#events_df_tmp2[is.na(table_group),]
-events_df_tmp2
-gc()
+source(file = paste0(git_path,'code/in_paper_analysis/utils_funcs.R'))
 
-#------------------------------------
-# CREATE PLOT 1 - WEEKLY SALIENCE
-# with event info
-#-----------------------------------
 
 #----------------------------------------------------------------------------#
 #          Create Fig 1 (Weekly salience + raw immigration numbs.)        ----
@@ -93,15 +77,6 @@ gc()
 
 # read in weekly data
 df_plot <- read_format_weekly_data(base_path = base_path)
-
-#focus on past 2000 events (consistent era)
-events_df_tmp2 <- events_df_tmp2[y>=2000,]
-events_df_tmp2 
-
-#identify weeks with uncommonly high salience of immigration
-df_plot[,highsal_col := ifelse(ymw%in%high_salience$ymw,'1','0')]
-# identify weeks where an event happened
-df_plot[, highsal_col2 := ifelse(ymw%in%events_df_tmp2$ymw,'2',highsal_col)]
 
 # read in immigration statistics data (will give warnings - ignore it!)
 df_y_inv <- read_format_scb_data(base_path = base_path, git_path = git_path, current_run = run)
@@ -111,21 +86,18 @@ scalar2 <- round(mean(df_y_inv$count/(df_y_inv$stand_y)))
 
 # order plot data on date
 df_plot <- df_plot[order(ymw),]
-print(names(df_plot))
 
 # create axis labels
 casing <- c('1945-01-01','1955-01-01','1965-01-01','1975-01-01','1985-01-01','1995-01-01','2005-01-01','2015-01-01')
 casing_labels <- c('1945','1955','1965','1975','1985','1995','2005','2015')
 
 # plot immigration salience in news
-source(file = paste0(git_path,'code/paper_ready/utils_funcs.R'))
-plt_immigration_salience <- plot_immigration_salience(df_plot = df_plot, base_path = base_path, 
-                                                      casing = casing, casing_labels = casing_labels,
-                                                      current_run = run)
+# plot immigration salience in news
+plt_immigration_salience <- plot_immigration_salience(df_plot = df_plot, data_path = data_path, 
+                                                      casing = casing, casing_labels = casing_labels)
 
 
-plt_immigration_numbs <- plot_immigration_numbs(df_plot = df_y_inv, base_path = base_path, 
-                                                casing = casing, casing_labels = casing_labels)
+plt_immigration_numbs <- plot_immigration_numbs(df_plot = df_y_inv, casing = casing, casing_labels = casing_labels)
 
 # combine plots
 salience_scb_plot <- ggpubr::ggarrange(plt_immigration_numbs,
