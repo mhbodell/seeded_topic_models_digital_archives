@@ -12,17 +12,19 @@ Follow the instructions in the PartiallyCollapsedLDA repository to install the s
 
 ## 2. Running the Main Seeded Topic Model Using a Scalable Gibbs Sampler
 
-Use the [bash file](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/shells/0_run_main_model.sh) to run the main model. The [configuration file](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/configs/main_model_k1000.cfg) used for the main analysis specifies the model parameters (k = 1000, alpha = 0.5, beta = 0.01), the number of iterations (2200), and most importantly, the [seed word list](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/priors/priors_main.txt) used to guide the model.
+Use this [bash file](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/shells/0_run_main_model.sh) to run the main model. The [configuration file](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/configs/main_model_k1000.cfg) used for the main analysis specifies the model parameters (k = 1000, alpha = 0.5, beta = 0.01), the number of iterations (2200), and most importantly, the [seed word list](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/priors/priors_main.txt) used to guide the model.
 
 Make sure to update the configuration file and bash file to fit your local environment.
 
 ## 3. Transforming Raw Model Output to Data for Analysis
 
-Use the [bash file](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/shells/1_chunk_data_get_output.sh) to transform the raw model output into an R-readable format. Make sure to update the file paths to fit your local environment.
+Use this [bash file](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/bash/shells/1_chunk_data_get_output.sh) to transform the raw model output into an R-readable format. Make sure to update the file paths to fit your local environment.
 
 ## 4. Running the Main Analysis
 
 Run [main.R](https://github.com/mhbodell/seeded_topic_models_digital_archives/blob/main/code/in_paper_analysis/main.R) to generate the figures and numbers included in the main text of the paper. The code in this script creates (1) Figure 1: immigration salience vs. real immigration numbers over time, and (2) Figure 2: the relative frame salience over time, identifying and plotting turning points in the immigration discourse.
+
+All data needed to run main.R are available [here](https://github.com/mhbodell/seeded_topic_models_digital_archives/tree/main/data).
 
 You can find the code used to create the figures and numbers in the appendix [here](https://github.com/mhbodell/seeded_topic_models_digital_archives/tree/main/code/in_paper_analysis/supplementary).
 
