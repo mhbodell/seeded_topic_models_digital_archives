@@ -31,18 +31,18 @@ for (package in required_packages) {
 
 where <- 'naiss'
 store_figs <- list()
-validations <- c('90_1','90_2','90_3','80_1','80_2','80_3','70_1','70_2','70_3')
+validations <- c(0.01,0.04,0.05)
 
 data_path <- '/proj/efe_et/old_m4m/media_group_threat/data/'
 git_path <- '/proj/efe_et/seeded_topic_models_digital_archives/'
-save_path <- paste0('/proj/efe_et/model_output/seed_validation_models/') 
+save_path <- paste0('/proj/efe_et/seeded_topic_models_digital_archives/output/') 
 source(file = paste0(git_path,'code/in_paper_analysis/utils_funcs.R'))
 
 for(ii in 1:length(validations)){
-    run <- validations[ii]; print(run)
-    base_path <- paste0('/proj/efe_et/model_output/seed_validation_models/',run,'/')
+    run <- '2021-06-06--18_11_45'; print(ii)
+    base_path <- paste0('/proj/efe_et/',run,'/')
    # set threshold for "immigrant-rich"
-  too_small_threshold <- 0.025
+  too_small_threshold <- validations[ii]
   # read in data & select docs based on threshold
   data <- fread(paste0(base_path,'immigration_ts_doc_multi.csv'))
   nrow(data)
@@ -64,7 +64,6 @@ for(ii in 1:length(validations)){
   plt_frame_ts <- plot_framing_salience(df_plot = df_frame_salience_yearly)
   #----------------------------------------------------------------------------#
   #                 Create Fig. 2b (turning points)                   ----
-   set.seed(14121)
   # cast to wide format
   df_frame_salience_yearly_wide <- pivot_wider(df_frame_salience_yearly, id_cols = year, names_from = frame, values_from = frame_r)
   # run multivariate turning point analysis
@@ -103,20 +102,14 @@ for(ii in 1:length(validations)){
 
 
 # combine Fig. 2a &  Fig. 2 
-different_seeds_plot <- ggpubr::ggarrange(store_figs[[1]] , #90
+different_thres_plot <- ggpubr::ggarrange(store_figs[[1]] ,
                                                store_figs[[2]],
-                                               store_figs[[3]],
-                                               store_figs[[4]],
-                                               store_figs[[5]],
-                                               store_figs[[6]],
-                                               store_figs[[7]],
-                                               store_figs[[8]],
-                                               store_figs[[9]], 
-                                               nrow = 3, ncol = 3, 
-                                               labels = c('A','B','C','D','E','F','G','H','I'),
+                                               store_figs[[3]], 
+                                               nrow = 3, ncol = 1, 
+                                               labels = c('A','B','C'),
                                                font.label = list(face = 'plain', size = 11), 
                                                common.legend = T) 
-ggsave(different_seeds_plot,  file = paste0(save_path, 'validation_seed_words_main.png'),
+ggsave(different_thres_plot,  file = paste0(save_path, '0_025/validation_thresholds_main.png'),
        height = 30, width = 32,  units = 'cm')
 
 
