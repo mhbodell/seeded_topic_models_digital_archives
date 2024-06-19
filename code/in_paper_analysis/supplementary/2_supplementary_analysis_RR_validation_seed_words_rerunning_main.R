@@ -40,7 +40,7 @@ where <- 'naiss'
 
 if(where=='naiss'){
   run <-'2024-02-08--09_09_45'
-  data_path <- '/proj/efe_et/old_m4m/media_group_threat/data/'
+  data_path <- '/proj/efe_et/old_m4m/seeded_topic_models_digital_archives/data/'
   base_path <- paste0('/proj/efe_et/Runs/RunSuite',run,'/Run',run,'/Spalias/')
   git_path <- '/proj/efe_et/old_m4m/seeded_topic_models_digital_archives/'
   save_path <- paste0('/proj/efe_et/Runs/RunSuite',run,'/Run',run,'/Spalias/')

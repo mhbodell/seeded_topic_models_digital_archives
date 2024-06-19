@@ -1059,7 +1059,7 @@ plot_turning_points <-  function(df_plot = univariate_bcp, turning_points =  tp_
                fill= "grey") +
       geom_line(data = multivariate_bcp,aes(x = year, y = posterior_prob), size = 0.5)  +
       geom_hline(yintercept = 0.5, lty = 'dotted')  -> tp_both
-  }
+  } 
 
   tp_both + theme(plot.margin = unit(c(-0.3,0.3,0.3,0.3), "lines"), 
           legend.position = 'none') +
@@ -1070,7 +1070,48 @@ plot_turning_points <-  function(df_plot = univariate_bcp, turning_points =  tp_
   return(tp_both)
 }
 
+#----------------------------------------------------------------------------#
+#                        Plot Fig.2b turning points                    ----
+#----------------------------------------------------------------------------#
 
+plot_turning_points_valid <-  function(df_plot = univariate_bcp, turning_points =  tp_year, run = "2021-06-06--18_11_45"){
+  
+  ggplot(df_plot) +
+    geom_line(aes(x = year, y = posterior_prob, col = frame), size = 1, alpha = 0.5) +
+    theme(aspect.ratio=1,
+          legend.position = 'none') +
+    theme_bw(base_size = 11) +
+    scale_y_continuous(breaks = seq(0,1, by = 0.2),
+                       expand=expand_scale(mult=c(0,0.1))) + 
+    scale_x_continuous(limits = c(1945, 2020),
+                       breaks = c(turning_points[order(turning_points)]),
+                       expand = c(0,0)) + 
+    labs(y = '',
+         x = '',
+         color = '')  +
+    scale_color_manual(values=c('cultural' = "#440154FF", 
+                                'economy' = "#3B528BFF" ,
+                                'humanitarian' = "#21908CFF",
+                                'security' = "#5DC863FF",
+                                'politics' = "#FDE725FF"),
+                       labels = c('cultural' = "Culture", 
+                                  'economy' = "Economy", 
+                                  'humanitarian' ="Human \nrights",
+                                  'security' = "Security",
+                                  'politics' ="Politics")) -> tmp_plt
+  
+   tmp_plt +
+      geom_line(data = multivariate_bcp,aes(x = year, y = posterior_prob), size = 0.5)  +
+      geom_hline(yintercept = 0.5, lty = 'dotted')  -> tp_both
+  
+  tp_both + theme(plot.margin = unit(c(-0.3,0.3,0.3,0.3), "lines"), 
+                  legend.position = 'none') +
+    #theme(axis.text.x = element_text(angle = 45, hjust = 1),
+    theme(axis.title.y = element_text(size = 11))+
+    labs(y = 'Posterior prob.') -> tp_both
+  
+  return(tp_both)
+}
 
 #----------------------------------------------------------------------------#
 #                   Extract weekly framing salience data                  ----
