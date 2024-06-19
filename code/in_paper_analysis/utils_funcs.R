@@ -848,27 +848,31 @@ plot_framing_salience <-  function(df_plot = df_frame_salience_plot){
     data.table()-> test
   test[,newcol:= ifelse(is.na(newcol),frame_r,newcol)]
   
+  # create colorblind friendly colors
+  cbPalette <- c(   )
+  
+  
   test%>%
     filter(frame!='other') %>%
     ggplot(aes(x = year, y = frame_r, col = frame)) +
     scale_y_continuous(expand=expand_scale(mult=c(0,0.1))) +
     geom_line(aes(x = year, y = newcol,col = frame)) +
     theme(aspect.ratio=1) +
-    scale_color_manual(values=c('cultural' = "#999999", 
-                                'economy' = '#E69F00',
-                                'humanitarian' = '#56B4E9',
-                                'security' = '#F0E442',
-                                'politics' = '#009E73'),
+    scale_color_manual(values=c('cultural' = "#440154FF", 
+                                'economy' = "#3B528BFF",
+                                'humanitarian' = "#21908CFF",
+                                'security' = "#5DC863FF",
+                                'politics' = "#FDE725FF"),
                        labels = c('cultural' = "Culture", 
                                   'economy' = "Economy", 
                                   'humanitarian' ="Human \nrights",
                                   'security' = "Security",
                                   'politics' ="Politics")) +
-    scale_fill_manual(values=c('cultural' = "#999999", 
-                               'economy' = '#E69F00',
-                               'humanitarian' = '#56B4E9',
-                               'security' = '#F0E442',
-                               'politics' = '#009E73'),
+    scale_fill_manual(values=c('cultural' = "#440154FF", 
+                               'economy' = "#3B528BFF",
+                               'humanitarian' = "#21908CFF",
+                               'security' =   "#5DC863FF",
+                               'politics' = "#FDE725FF"),
                       labels = c('cultural' = "Culture", 
                                  'economy' = "Economy", 
                                  'humanitarian' ="Human \nrights",
@@ -960,11 +964,11 @@ plot_turning_points <-  function(df_plot = univariate_bcp, turning_points =  tp_
   labs(y = '',
        x = '',
        color = '')  +
-  scale_color_manual(values=c('cultural' = "#999999", 
-                              'economy' = '#E69F00',
-                              'humanitarian' = '#56B4E9',
-                              'security' = '#F0E442',
-                              'politics' = '#009E73'),
+  scale_color_manual(values=c('cultural' = "#440154FF", 
+                              'economy' = "#3B528BFF" ,
+                              'humanitarian' = "#21908CFF",
+                              'security' = "#5DC863FF",
+                              'politics' = "#FDE725FF"),
                      labels = c('cultural' = "Culture", 
                                 'economy' = "Economy", 
                                 'humanitarian' ="Human \nrights",

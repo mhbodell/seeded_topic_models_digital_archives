@@ -149,9 +149,6 @@ df_frame_salience <- fread(paste0(data_path, 'df_frame_salience.csv'))
 # aggregate data to yearly-level
 df_frame_salience_yearly <- get_yearly_framing_salience(df_frame_salience_plot = copy(df_frame_salience))
 
-# create colorblind friendly colors
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#000000", "seagreen","darkred")
-
 # control that all frames are in the data
 table(df_frame_salience_yearly$frame)
 

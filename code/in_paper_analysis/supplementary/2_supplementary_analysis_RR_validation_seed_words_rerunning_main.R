@@ -42,7 +42,7 @@ if(where=='naiss'){
   run <-'2024-02-08--09_09_45'
   data_path <- '/proj/efe_et/old_m4m/media_group_threat/data/'
   base_path <- paste0('/proj/efe_et/Runs/RunSuite',run,'/Run',run,'/Spalias/')
-  git_path <- '/proj/efe_et/old_m4m/media_group_threat/'
+  git_path <- '/proj/efe_et/old_m4m/seeded_topic_models_digital_archives/'
   save_path <- paste0('/proj/efe_et/Runs/RunSuite',run,'/Run',run,'/Spalias/')
 } 
 #---------------------------------------------------------------------------#
@@ -63,12 +63,6 @@ data$paper <- ifelse(substr(data$id,start = 1, stop = 1)=='A','Aftonbladet',
                             ifelse(substr(data$id,start = 1, stop = 1)=='S','Svenska Dagbladet','Dagens Nyheter')))
 table(data$paper)
 
-
-#----------------------------------------------------------------------------#
-#                    Identify high immigration salience weeks            ----
-#----------------------------------------------------------------------------#
-
-source(file = paste0(git_path,'code/in_paper_analysis/utils_funcs.R'))
 
 
 #----------------------------------------------------------------------------#
