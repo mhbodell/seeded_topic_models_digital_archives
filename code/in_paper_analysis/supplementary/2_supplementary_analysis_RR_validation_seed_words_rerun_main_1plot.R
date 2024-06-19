@@ -29,18 +29,15 @@ for (package in required_packages) {
 # set up
 #---------------------------------------------------------------------------#
 
-where <- 'naiss'
 store_figs <- list()
 validations <- c('90_1','90_2','90_3','80_1','80_2','80_3','70_1','70_2','70_3')
-
-data_path <- '/proj/efe_et/old_m4m/media_group_threat/data/'
-git_path <- '/proj/efe_et/seeded_topic_models_digital_archives/'
-save_path <- paste0('/proj/efe_et/seeded_topic_models_digital_archives/output/') 
+git_path <- '/home/miriam/Documents/git/seeded_topic_models_digital_archives/'
+save_path <- paste0('/home/miriam/Documents/git/seeded_topic_models_digital_archives/output/') 
 source(file = paste0(git_path,'code/in_paper_analysis/utils_funcs.R'))
 
 for(ii in 1:length(validations)){
   run <- validations[ii]; print(run)
-  base_path <- paste0('/proj/efe_et/model_output/seed_validation_models/',run,'/')
+  base_path <- paste0('/data/miriam/seed_validation_models/',run,'/')
   # set threshold for "immigrant-rich"
   too_small_threshold <- 0.025
   # read in data & select docs based on threshold

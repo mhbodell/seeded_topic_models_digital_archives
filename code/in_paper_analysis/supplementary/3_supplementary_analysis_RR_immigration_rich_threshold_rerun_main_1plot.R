@@ -28,23 +28,20 @@ for (package in required_packages) {
 #---------------------------------------------------------------------------#
 # set up
 #---------------------------------------------------------------------------#
-
-where <- 'naiss'
 store_figs <- list()
 validations <- c(0.01,0.04,0.05)
 
-data_path <- '/proj/efe_et/old_m4m/media_group_threat/data/'
-git_path <- '/proj/efe_et/seeded_topic_models_digital_archives/'
-save_path <- paste0('/proj/efe_et/seeded_topic_models_digital_archives/output/') 
+git_path <- paste0('/home/miriam/Documents/git/seeded_topic_models_digital_archives/')
+save_path <- paste0(git_path, 'output/')
+data_path <- paste0(git_path,'data/')
 source(file = paste0(git_path,'code/in_paper_analysis/utils_funcs.R'))
 
 for(ii in 1:length(validations)){
     run <- '2021-06-06--18_11_45'; print(ii)
-    base_path <- paste0('/proj/efe_et/',run,'/')
+    data <- fread(paste0('/home/miriam/Downloads/RunSuite',run,'/Run',run,'/Spalias/immigration_ts_doc_multi.csv'))
    # set threshold for "immigrant-rich"
   too_small_threshold <- validations[ii]
   # read in data & select docs based on threshold
-  data <- fread(paste0(base_path,'immigration_ts_doc_multi.csv'))
   nrow(data)
   data <- data[r>=too_small_threshold,]
   nrow(data)
@@ -110,6 +107,6 @@ different_thres_plot <- ggpubr::ggarrange(store_figs[[1]] ,
                                                font.label = list(face = 'plain', size = 11), 
                                                common.legend = T) 
 ggsave(different_thres_plot,  file = paste0(save_path, '0_025/validation_thresholds_main.png'),
-       height = 30, width = 32,  units = 'cm')
+       height = 25, width = 15,  units = 'cm')
 
 
