@@ -128,7 +128,7 @@ for(tmp_paper in papers){ print(tmp_paper)
   mylegend <- g_legend(plt_frame_ts)
   
   # combine Fig. 2a &  Fig. 2 
-  fig2 <- ggpubr::ggarrange(plt_frame_ts2, plot_tp , nrow = 2, ncol = 1, labels = c('A','B'),
+  fig2 <- ggpubr::ggarrange(plt_frame_ts2, plot_tp , nrow = 2, ncol = 1, labels = c('',''),
                             font.label = list(face = 'plain', size = 11), common.legend = T) 
   fig2
 
@@ -140,14 +140,16 @@ for(tmp_paper in papers){ print(tmp_paper)
 
 #combine paper-specific plots
 tmp_file_name <- paste0(save_path, too_small_threshold_t,'/validation_split_newspapers.png')
-split_paper_fig2 <-  ggpubr::ggarrange(paper_figs[['Aftonbladet']] + theme(legend.position = "none", title = element_text(size= 5)) + theme_bw(base_size = 7), 
+split_paper_fig2 <-  ggpubr::ggarrange(paper_figs[['Aftonbladet']] + theme_bw(base_size = 7)+ theme(legend.position = "none", title = element_text(size= 5)),  
                                       paper_figs[['Expressen']] + theme_bw(base_size = 7) + theme(legend.position = "none", title = element_text(size=5)), 
                                       paper_figs[['Dagens Nyheter']]+ theme_bw(base_size = 7) + theme(legend.position = "none", title = element_text(size= 5)), #
                                       paper_figs[['Svenska Dagbladet']] + theme_bw(base_size = 7) + theme(legend.position = "none", title = element_text(size= 5)) , 
-                                      labels = c("A",'B', "C",'D'), common.legend = TRUE,
+                                      labels = c("A",'B', "C",'D'), #common.legend = TRUE,
                                       nrow = 2, ncol = 2,font.label = list(size = 11,face = "plain"))
+
+
 split_paper_fig2
-ggsave(split_paper_fig2, file = tmp_file_name, height = 20, width = 28, units = 'cm')
+ggsave(split_paper_fig2, file = tmp_file_name, height = 23, width = 32, units = 'cm')
 gc()
 
 

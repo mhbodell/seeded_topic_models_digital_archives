@@ -190,7 +190,7 @@ tmp[order(tmp)]
 source(file = paste0(base_path,'code/in_paper_analysis/utils_funcs.R'))
 #1) = original mode, 2) k =950, 3) k = 1050
 runs <- c('2021-06-06--18_11_45','2021-06-18--19_18_47','2021-06-24--09_02_42')
-
+save_k <- list()
 for(run_nr in 2:3){
 # ---> for data storage limtations we only provide the processed data  
 # the data read on row 217 in created by the commented out code on line 197--216  
@@ -264,9 +264,10 @@ for(run_nr in 2:3){
   mylegend <- g_legend(plt_frame_ts)
   
   # combine Fig. 2a &  Fig. 2 
-  fig2 <- ggpubr::ggarrange(plt_frame_ts2, plot_tp , nrow = 2, ncol = 1, labels = c('A','B'),
+  fig2 <- ggpubr::ggarrange(plt_frame_ts2, plot_tp , nrow = 2, ncol = 1, labels = c('',''),
                             font.label = list(face = 'plain', size = 11), common.legend = T) 
   fig2
+  save_k[[run_nr - 1]] <- fig2
   too_small_threshold_t <-gsub(as.character(too_small_threshold), pattern = '\\.', replacement = '_')
   if(runs[run_nr]=='2021-06-18--19_18_47'){
     file_name <- paste0(save_path,too_small_threshold_t, '/fig2_k950.png')
@@ -276,4 +277,14 @@ for(run_nr in 2:3){
   ggsave(fig2,  file = file_name, height = 12, width = 15,  units = 'cm')
   
 }
+
+# combine plots
+plt_diff_k <-  ggpubr::ggarrange( save_k[[1]] , #950
+                                   save_k[[2]] ,#1050
+                                  labels = c("A",'B'),
+                                  nrow = 2, ncol = 1,font.label = list(size = 11,face = "plain"))
+plt_diff_k
+ggsave(plt_diff_k, 
+       file = paste0(save_path, '/0_025/validation_different_k.png'),
+       height = 20, width = 15,   units = 'cm')
 
