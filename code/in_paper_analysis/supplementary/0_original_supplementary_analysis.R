@@ -62,7 +62,7 @@ p <- ggplot(lik, aes(x = iter, y = likelihood/1000000000)) +
   scale_y_continuous(labels = (scales::comma)) +
   theme_bw()
 p
-ggsave(paste0(save_path,too_small_threshold_t,"/convergance.png"), 
+ggsave(paste0(save_path,too_small_threshold_t,"/convergance.pdf"), 
        plot = p, limitsize = T, 
        height = 10,
        width = 10,
@@ -96,7 +96,7 @@ ggplot(top_z_bar, aes(x = year, y = r, col = token)) +
   scale_colour_grey() -> z_bar_plot
 z_bar_plot
 
-ggsave(paste0(save_path,too_small_threshold_t,"/z_bar_plot.png"), 
+ggsave(paste0(save_path,too_small_threshold_t,"/z_bar_plot.pdf"), 
        plot = z_bar_plot, limitsize = T, 
        height = 10,
        width = 17,
@@ -268,14 +268,7 @@ for(run_nr in 2:3){
                             font.label = list(face = 'plain', size = 11), common.legend = T) 
   fig2
   save_k[[run_nr - 1]] <- fig2
-  too_small_threshold_t <-gsub(as.character(too_small_threshold), pattern = '\\.', replacement = '_')
-  if(runs[run_nr]=='2021-06-18--19_18_47'){
-    file_name <- paste0(save_path,too_small_threshold_t, '/fig2_k950.png')
-  }else if(runs[run_nr]=='2021-06-24--09_02_42'){
-    file_name <- paste0(save_path,too_small_threshold_t, '/fig2_k1050.png')
-  }
-  ggsave(fig2,  file = file_name, height = 12, width = 15,  units = 'cm')
-  
+
 }
 
 # combine plots
@@ -285,6 +278,6 @@ plt_diff_k <-  ggpubr::ggarrange( save_k[[1]] , #950
                                   nrow = 2, ncol = 1,font.label = list(size = 11,face = "plain"))
 plt_diff_k
 ggsave(plt_diff_k, 
-       file = paste0(save_path, '/0_025/validation_different_k.png'),
+       file = paste0(save_path, '/0_025/validation_different_k.pdf'),
        height = 20, width = 15,   units = 'cm')
 

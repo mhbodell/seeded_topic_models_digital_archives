@@ -139,7 +139,7 @@ for(tmp_paper in papers){ print(tmp_paper)
 }
 
 #combine paper-specific plots
-tmp_file_name <- paste0(save_path, too_small_threshold_t,'/validation_split_newspapers.png')
+tmp_file_name <- paste0(save_path, too_small_threshold_t,'/validation_split_newspapers.pdf')
 split_paper_fig2 <-  ggpubr::ggarrange(paper_figs[['Aftonbladet']] + theme_bw(base_size = 7)+ theme(legend.position = "none", title = element_text(size= 5)),  
                                       paper_figs[['Expressen']] + theme_bw(base_size = 7) + theme(legend.position = "none", title = element_text(size=5)), 
                                       paper_figs[['Dagens Nyheter']]+ theme_bw(base_size = 7) + theme(legend.position = "none", title = element_text(size= 5)), #
