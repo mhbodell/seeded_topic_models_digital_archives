@@ -1,6 +1,10 @@
 # Seeded Topic Models in Digital Archives: Analyzing Interpretations of Immigration in Swedish Newspapers, 1945-2019
 
-This repository contains the code needed to reproduce the paper by Hurtado Bodell, M., Keuschnigg, M., & Magnusson, M., (2024) "Seeded Topic Models in Digital Archives: Analyzing Interpretations of Immigration in Swedish Newspapers, 1945-2019." [conditionally accepted in Sociological Methods & Research]
+This repository contains the code needed to reproduce the paper by
+Hurtado Bodell, M., Magnusson, M., & Keuschnigg, M. (2024) "Seeded Topic
+Models in Digital Archives: Analyzing Interpretations of Immigration in
+Swedish Newspapers, 1945-2019." Sociological Methods & Research, DOI:
+10.1177/00491241241268453.
 
 If you want to recreate the model from scratch, follow steps 1-3. If you just want to re-run the code used for the main analysis in the paper, skip to step 4.
 
