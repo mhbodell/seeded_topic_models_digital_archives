@@ -89,7 +89,13 @@ too_small_threshold <- 0.025
 name_thres <- gsub(pattern = '\\.','_',as.character(too_small_threshold))
 fn <- paste0(save_path,name_thres,"/fig1.png")
 ggsave(file = fn,    plot = salience_scb_plot, limitsize = T,  height = 12,  
-       width = 15,   units = 'cm')
+       width = 15,   units = 'cm',  dpi=600)
+fn <- paste0(save_path,name_thres,"/fig1.pdf")
+ggsave(file = fn,    plot = salience_scb_plot, limitsize = T,  height = 12,  
+       width = 15,   units = 'cm',  dpi=600)
+fn <- paste0(save_path,name_thres,"/fig1.eps")
+ggsave(file = fn,    plot = salience_scb_plot, limitsize = T,  height = 12,  
+       width = 15,   units = 'cm', device = 'eps')
 
 #----------------------------------------------------------------------------#
 #          Calculate correlations between im. numbs & salience           ----
@@ -200,10 +206,12 @@ fig2 <- ggpubr::ggarrange(plt_frame_ts2, plot_tp , nrow = 2, ncol = 1, labels = 
                          font.label = list(face = 'plain', size = 11), common.legend = T) 
 fig2
 too_small_threshold_t <-gsub(as.character(too_small_threshold), pattern = '\\.', replacement = '_')
-posthoc_type <- 'minimal'
 ggsave(fig2,  file = paste0(save_path, too_small_threshold_t,'/fig2.png'),
-       height = 12, width = 15,  units = 'cm')
-
+       height = 12, width = 15,  units = 'cm', dpi = 600)
+ggsave(fig2,  file = paste0(save_path, too_small_threshold_t,'/fig2.pdf'),
+       height = 12, width = 15,  units = 'cm', dpi = 600)
+ggsave(fig2,  file = paste0(save_path, too_small_threshold_t,'/fig2.eps'),
+       height = 12, width = 15,  units = 'cm', device = 'eps')
 
 
 

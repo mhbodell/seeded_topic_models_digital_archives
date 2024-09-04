@@ -106,7 +106,7 @@ different_thres_plot <- ggpubr::ggarrange(store_figs[[1]] ,
                                                labels = c('A','B','C'),
                                                font.label = list(face = 'plain', size = 11), 
                                                common.legend = T) 
-ggsave(different_thres_plot,  file = paste0(save_path, '0_025/validation_thresholds_main.png'),
+ggsave(different_thres_plot,  file = paste0(save_path, '0_025/validation_thresholds_main.pdf'),
        height = 25, width = 15,  units = 'cm')
 
 

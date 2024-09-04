@@ -99,7 +99,7 @@ gc()
 
 # generate plots
 plt_terrorism_exp <- plot_event_study_exp_single(event0 = swe_terror[[1]]$data,  type0 = 'swe', col0 = '#c7bd36', event_name = 'Islamist terror')
-plt_hum_exp <- plot_event_study_exp_single(event0 = alan_kurdi2[[1]]$data, type0= 'alan_kurdi2', col0 =  '#56B4E9', event_name = 'Human rights')
+plt_hum_exp <- plot_event_study_exp_single(event0 = alan_kurdi2[[1]]$data, type0= 'alan_kurdi2', col0 =  'darkblue', event_name = 'Human rights')
 
 
 # combine plots
@@ -108,9 +108,8 @@ fe_plot_exp <-  ggpubr::ggarrange(plt_terrorism_exp + theme_bw(base_size = 14) +
                                   labels = c("A",'B'),
                                   nrow = 1, ncol = 2,font.label = list(size = 11,face = "plain"))
 fe_plot_exp
-too_small_threshold_t <-gsub(as.character(too_small_threshold), pattern = '\\.', replacement = '_')
 ggsave(fe_plot_exp, 
-       file = paste0(save_path, too_small_threshold_t,'/event_study_validation.png'),
+       file = paste0(save_path,'/0_025/event_study_validation.pdf'),
        height = 12,
        width = 15,
        units = 'cm')

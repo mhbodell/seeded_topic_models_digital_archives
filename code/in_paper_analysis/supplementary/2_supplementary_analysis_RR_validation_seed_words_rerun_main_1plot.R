@@ -112,7 +112,7 @@ different_seeds_plot <- ggpubr::ggarrange(store_figs[[1]] , #90
                                           labels = c('A','B','C','','','','','',''),
                                           font.label = list(face = 'plain', size = 11), 
                                           common.legend = T) 
-ggsave(different_seeds_plot,  file = paste0(save_path, '0_025/validation_seed_words_main.png'),
+ggsave(different_seeds_plot,  file = paste0(save_path, '0_025/validation_seed_words_main.pdf'),
        height = 30, width = 32,  units = 'cm')
 
 
